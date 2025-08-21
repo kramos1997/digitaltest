@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Search Interface -->
+<div class="mb-8">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-2 text-neutral-900">Deep Research with Evidence</h2>
+        <p class="text-neutral-600 text-center mb-8">Get comprehensive answers with citations, sources, and audit-ready evidence trails</p>
+        
+        <form hx-post="/research" hx-target="#results-container" hx-swap="innerHTML" hx-indicator="#loading-indicator" class="space-y-4">
+            <div class="relative">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Ask a research question... (e.g., 'What are the latest EU regulations on AI governance?')"
+                    class="search-input w-full px-6 py-4 text-lg border border-neutral-300 rounded-xl focus:outline-none focus:ring-0 focus:border-primary-500 transition-all duration-200"
+                    required
+                >
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center gap-3">
+                    <select name="lang" class="text-sm border-neutral-300 rounded-lg bg-neutral-50 text-neutral-600">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="flex justify-center">
+                <button 
+                    type="submit" 
+                    class="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl"
+                >
+                    <i class="fas fa-search"></i>
+                    Start Research
+                </button>
+            </div>
+        </form>
+        
+        <!-- Loading indicator -->
+        <div id="loading-indicator" class="htmx-indicator flex justify-center mt-6">
+            <div class="flex items-center gap-2 text-primary-600">
+                <div class="spinner"></div>
+                <span>Initializing research...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Results Container -->
+<div id="results-container">
+    <!-- Initial State -->
+    <div class="text-center py-12 text-neutral-500">
+        <i class="fas fa-search text-4xl mb-4 text-neutral-300"></i>
+        <p>Enter a research question above to get started</p>
+        <div class="mt-6 max-w-md mx-auto">
+            <p class="text-sm text-neutral-400 mb-3">Example questions:</p>
+            <div class="space-y-2 text-sm">
+                <button 
+                    class="example-query block w-full text-left p-3 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition-colors text-neutral-600"
+                    onclick="document.querySelector('input[name=q]').value = this.textContent.trim().replace(/['\"]/g, '')"
+                >
+                    "What are the latest developments in quantum computing?"
+                </button>
+                <button 
+                    class="example-query block w-full text-left p-3 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition-colors text-neutral-600"
+                    onclick="document.querySelector('input[name=q]').value = this.textContent.trim().replace(/['\"]/g, '')"
+                >
+                    "How is climate change affecting European agriculture?"
+                </button>
+                <button 
+                    class="example-query block w-full text-left p-3 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition-colors text-neutral-600"
+                    onclick="document.querySelector('input[name=q]').value = this.textContent.trim().replace(/['\"]/g, '')"
+                >
+                    "What are the cybersecurity implications of 5G networks?"
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Show loading state when form is submitted
+document.body.addEventListener('htmx:beforeRequest', function(evt) {
+    if (evt.detail.target.id === 'results-container') {
+        document.getElementById('results-container').innerHTML = `
+            <div class="bg-white rounded-xl shadow-lg border border-neutral-200 overflow-hidden">
+                <div class="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-neutral-900">Research Results</h3>
+                        <div id="research-status" class="flex items-center gap-2 text-sm text-blue-700">
+                            <div class="spinner"></div>
+                            <span>Starting research...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-6 p-6">
+                    <div class="lg:col-span-2">
+                        <div id="answer" class="prose prose-lg max-w-none">
+                            <div class="text-neutral-500 text-center py-8">
+                                <i class="fas fa-hourglass-half text-2xl mb-2"></i>
+                                <p>Processing your research query...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-1">
+                        <div id="sources" class="sticky top-6">
+                            <div class="bg-neutral-100 rounded-lg p-4 text-center text-neutral-500">
+                                <i class="fas fa-list mb-2"></i>
+                                <p class="text-sm">Sources will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="research-log" class="mt-8 bg-white rounded-xl shadow-lg border border-neutral-200" style="display: none;">
+                <!-- Research log will be populated -->
+            </div>
+        `;
+    }
+});
+
+// Handle research log toggle
+function toggleResearchLog() {
+    const content = document.getElementById('research-log-content');
+    const chevron = document.getElementById('research-log-chevron');
+    
+    if (content && chevron) {
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            chevron.style.transform = 'rotate(0deg)';
+        } else {
+            content.style.display = 'none';
+            chevron.style.transform = 'rotate(-90deg)';
+        }
+    }
+}
+</script>
+{% endblock %}

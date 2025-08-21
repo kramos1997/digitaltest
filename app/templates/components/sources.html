@@ -1,0 +1,108 @@
+<div hx-swap-oob="innerHTML:#sources">
+    <div class="sticky top-6 space-y-6">
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+            <h4 class="font-semibold text-neutral-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-list"></i>
+                Sources ({{ sources|length }})
+            </h4>
+            
+            <div class="space-y-4">
+                {% for source in sources %}
+                <div id="source-{{ source.id }}" class="source-card bg-white p-4 rounded-lg border border-neutral-200">
+                    <div class="flex items-start gap-3">
+                        <span class="citation-link text-xs">{{ source.id }}</span>
+                        <div class="flex-1 min-w-0">
+                            <h5 class="font-medium text-neutral-900 text-sm leading-tight mb-1">
+                                <a href="{{ source.url }}" target="_blank" rel="noopener noreferrer" class="hover:text-primary-600">{{ source.title }}</a>
+                            </h5>
+                            <div class="flex items-center gap-2 text-xs text-neutral-500 mb-2">
+                                <span class="domain-badge px-2 py-1 rounded text-xs font-medium
+                                    {% if '.gov' in source.domain or '.europa.eu' in source.domain %}
+                                        bg-green-100 text-green-700
+                                    {% elif '.edu' in source.domain %}
+                                        bg-blue-100 text-blue-700
+                                    {% elif '.org' in source.domain %}
+                                        bg-purple-100 text-purple-700
+                                    {% else %}
+                                        bg-neutral-100 text-neutral-600
+                                    {% endif %}
+                                ">{{ source.domain }}</span>
+                                <span>{{ source.published_date }}</span>
+                            </div>
+                            
+                            {% if source.pull_quotes %}
+                            <div class="space-y-2">
+                                {% for quote in source.pull_quotes %}
+                                <blockquote class="text-xs text-neutral-600 italic border-l-2 border-neutral-200 pl-2">
+                                    "{{ quote }}"
+                                </blockquote>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                {% if sources|length > 5 %}
+                <div class="text-center">
+                    <button class="text-primary-600 hover:text-primary-700 text-sm font-medium" onclick="toggleAllSources()">
+                        <span id="toggle-sources-text">Show All Sources</span>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- LLM Status -->
+        <div class="bg-white rounded-lg p-4 border border-neutral-200">
+            <h5 class="font-medium text-neutral-900 mb-3 flex items-center gap-2">
+                <i class="fas fa-brain"></i>
+                AI Processing
+            </h5>
+            <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                    <span class="text-neutral-600">Provider</span>
+                    <span class="font-medium text-green-600">
+                        {% if config.get('llm_provider') == 'mistral' %}
+                            Mistral EU
+                        {% else %}
+                            OpenAI Compatible
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-neutral-600">Model</span>
+                    <span class="font-medium">{{ config.get('model_name', 'Unknown') }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-neutral-600">GDPR Mode</span>
+                    <span class="{% if gdpr_mode %}text-green-600{% else %}text-neutral-500{% endif %}">
+                        <i class="fas {% if gdpr_mode %}fa-check{% else %}fa-times{% endif %}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleAllSources() {
+    const hiddenSources = document.querySelectorAll('.source-card:nth-child(n+6)');
+    const toggleText = document.getElementById('toggle-sources-text');
+    const isHidden = hiddenSources[0] && hiddenSources[0].style.display === 'none';
+    
+    hiddenSources.forEach(source => {
+        source.style.display = isHidden ? 'block' : 'none';
+    });
+    
+    toggleText.textContent = isHidden ? 'Show Fewer Sources' : 'Show All Sources';
+}
+
+// Initially hide sources beyond the first 5
+if (document.querySelectorAll('.source-card').length > 5) {
+    document.querySelectorAll('.source-card:nth-child(n+6)').forEach(source => {
+        source.style.display = 'none';
+    });
+}
+</script>

@@ -1,0 +1,15 @@
+<div hx-swap-oob="innerHTML:#answer">
+    <div class="prose prose-lg max-w-none">
+        <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div class="flex items-center gap-2 text-green-800 text-sm font-medium mb-2">
+                <i class="fas fa-check-circle"></i>
+                Research Complete
+            </div>
+            <p class="text-green-700 text-sm">Answer synthesized from {{ sources|length }} verified sources with full evidence trail</p>
+        </div>
+        
+        <div class="answer-content text-neutral-700 leading-relaxed">
+            {{ answer|safe }}
+        </div>
+    </div>
+</div>

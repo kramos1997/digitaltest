@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-xl shadow-lg border border-neutral-200 overflow-hidden">
+        <div class="border-b border-neutral-200 bg-neutral-50 px-8 py-6">
+            <h1 class="text-2xl font-bold text-neutral-900 flex items-center gap-3">
+                <i class="fas fa-shield-alt text-primary-600"></i>
+                Privacy Policy & GDPR Compliance
+            </h1>
+            <p class="text-neutral-600 mt-2">How ClarityDesk protects your data and respects your privacy</p>
+        </div>
+
+        <div class="p-8 space-y-8">
+            <!-- GDPR Mode Section -->
+            {% if gdpr_mode %}
+            <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                <div class="flex items-center gap-2 text-green-800 mb-3">
+                    <i class="fas fa-check-circle"></i>
+                    <h2 class="text-lg font-semibold">GDPR Mode Active</h2>
+                </div>
+                <div class="text-green-700 space-y-2">
+                    <p><strong>Enhanced Privacy Protection:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 ml-4">
+                        <li>No persistent storage of your research queries or scraped content</li>
+                        <li>Automatic redaction of personal information (emails, phones) from results</li>
+                        <li>Minimal logging - only aggregated statistics without personal identifiers</li>
+                        <li>All processing performed in EU-hosted infrastructure</li>
+                        <li>Memory-only data handling with automatic cleanup</li>
+                    </ul>
+                </div>
+            </div>
+            {% else %}
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <div class="flex items-center gap-2 text-blue-800 mb-3">
+                    <i class="fas fa-info-circle"></i>
+                    <h2 class="text-lg font-semibold">Standard Mode</h2>
+                </div>
+                <p class="text-blue-700">GDPR mode is not currently active. Some research data may be logged for system improvement.</p>
+            </div>
+            {% endif %}
+
+            <!-- Data Processing -->
+            <section>
+                <h2 class="text-xl font-semibold text-neutral-900 mb-4">Data We Process</h2>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-primary-500 pl-4">
+                        <h3 class="font-semibold text-neutral-800">Research Queries</h3>
+                        <p class="text-neutral-600">Your research questions are processed to generate search results and synthesized answers. In GDPR mode, queries are not logged or stored permanently.</p>
+                    </div>
+                    
+                    <div class="border-l-4 border-primary-500 pl-4">
+                        <h3 class="font-semibold text-neutral-800">Web Content</h3>
+                        <p class="text-neutral-600">We fetch and analyze content from public web sources to answer your queries. This content is processed in memory and not stored persistently in GDPR mode.</p>
+                    </div>
+                    
+                    <div class="border-l-4 border-primary-500 pl-4">
+                        <h3 class="font-semibold text-neutral-800">Usage Analytics</h3>
+                        <p class="text-neutral-600">We collect minimal usage statistics (query counts, processing times) for system optimization. No personal identifiers are included.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legal Basis -->
+            <section>
+                <h2 class="text-xl font-semibold text-neutral-900 mb-4">Legal Basis for Processing</h2>
+                <div class="bg-neutral-50 rounded-lg p-6">
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-balance-scale text-primary-600 mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold text-neutral-800">Legitimate Interest</h3>
+                                <p class="text-neutral-600">Processing research queries to provide comprehensive, cited answers with evidence tracking.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-handshake text-primary-600 mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold text-neutral-800">Consent</h3>
+                                <p class="text-neutral-600">By using our service, you consent to processing your research queries and receiving synthesized results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Retention -->
+            <section>
+                <h2 class="text-xl font-semibold text-neutral-900 mb-4">Data Retention</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-green-800 mb-2">GDPR Mode</h3>
+                        <ul class="text-green-700 space-y-1 text-sm">
+                            <li>• Memory-only processing</li>
+                            <li>• No persistent data storage</li>
+                            <li>• Automatic cleanup after request completion</li>
+                            <li>• Aggregated statistics only (no personal data)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-blue-800 mb-2">Standard Mode</h3>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• Query logs: 30 days</li>
+                            <li>• System metrics: 90 days</li>
+                            <li>• Error logs: 7 days</li>
+                            <li>• No personal content stored</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Your Rights -->
+            <section>
+                <h2 class="text-xl font-semibold text-neutral-900 mb-4">Your Rights Under GDPR</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-eye text-primary-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Right to Access</h3>
+                            <p class="text-neutral-600 text-sm">Request information about data we hold about you.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-edit text-primary-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Right to Rectification</h3>
+                            <p class="text-neutral-600 text-sm">Request correction of inaccurate data.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-trash text-primary-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Right to Erasure</h3>
+                            <p class="text-neutral-600 text-sm">Request deletion of your personal data.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-ban text-primary-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-semibold text-neutral-800">Right to Object</h3>
+                            <p class="text-neutral-600 text-sm">Object to processing for legitimate interests.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Measures -->
+            <section>
+                <h2 class="text-xl font-semibold text-neutral-900 mb-4">Technical Safeguards</h2>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-lock text-green-600"></i>
+                        <span class="text-neutral-700">All communications encrypted with TLS 1.3</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-server text-green-600"></i>
+                        <span class="text-neutral-700">EU-hosted infrastructure (no data transfers outside EU)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-user-secret text-green-600"></i>
+                        <span class="text-neutral-700">Automatic PII redaction in GDPR mode</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-clock text-green-600"></i>
+                        <span class="text-neutral-700">Automatic data purging and cleanup processes</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section>
+                <h2 class="text-xl font-semibold text-neutral-900 mb-4">Contact & Complaints</h2>
+                <div class="bg-neutral-50 rounded-lg p-6">
+                    <p class="text-neutral-700 mb-4">For privacy inquiries, data requests, or complaints:</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Data Protection Officer:</strong> privacy@claritydesk.eu</p>
+                        <p><strong>Response Time:</strong> Within 30 days as required by GDPR</p>
+                        <p><strong>Supervisory Authority:</strong> You can file complaints with your local Data Protection Authority</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Last Updated -->
+            <div class="border-t border-neutral-200 pt-6 text-sm text-neutral-500">
+                <p>Last updated: August 18, 2025</p>
+                <p>This policy is automatically updated to reflect the current GDPR mode status.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

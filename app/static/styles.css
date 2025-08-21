@@ -1,0 +1,273 @@
+/* ClarityDesk Custom Styles */
+
+/* Animation Keyframes */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Streaming text cursor effect */
+.streaming-cursor::after {
+    content: '▋';
+    animation: blink 1s infinite;
+    color: hsl(203.8863, 88.2845%, 53.1373%);
+}
+
+/* Citation links */
+.citation-link {
+    background: linear-gradient(135deg, hsl(203.8863, 88.2845%, 53.1373%), hsl(202.8169, 89.1213%, 53.1373%));
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 2px;
+    transition: all 0.2s ease;
+}
+
+.citation-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Source cards */
+.source-card {
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.source-card:hover {
+    border-left-color: hsl(203.8863, 88.2845%, 53.1373%);
+    transform: translateX(4px);
+}
+
+/* Evidence matrix table */
+.evidence-matrix th {
+    background: linear-gradient(135deg, hsl(0, 0%, 98%), hsl(220, 13%, 95%));
+}
+
+/* GDPR banner */
+.gdpr-banner {
+    background: linear-gradient(135deg, hsl(159.7826, 100%, 36.0784%), hsl(147.1429, 78.5047%, 41.9608%));
+}
+
+/* Research log items */
+.research-log-item {
+    border-left: 3px solid hsl(201.4286, 30.4348%, 90.9804%);
+    transition: border-color 0.2s ease;
+}
+
+.research-log-item:hover {
+    border-left-color: hsl(203.8863, 88.2845%, 53.1373%);
+}
+
+/* Loading spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(201.4286, 30.4348%, 90.9804%);
+    border-top: 2px solid hsl(203.8863, 88.2845%, 53.1373%);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Search input focus state */
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Domain badges with specific colors */
+.domain-badge {
+    font-weight: 500;
+}
+
+/* Answer content styling */
+.answer-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.answer-content h4 {
+    color: hsl(210, 25%, 7.8431%);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* HTMX indicators */
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.htmx-request .htmx-indicator {
+    opacity: 1;
+}
+
+.htmx-request.htmx-indicator {
+    opacity: 1;
+}
+
+/* Prose styling for answer content */
+.prose {
+    color: hsl(210, 25%, 7.8431%);
+}
+
+.prose h4 {
+    color: hsl(210, 25%, 7.8431%);
+    font-weight: 600;
+}
+
+.prose p {
+    color: hsl(210, 3.3898%, 46.2745%);
+}
+
+/* Custom status indicators */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-indicator.success {
+    background-color: hsl(142.1, 76.2%, 36.3%);
+    color: white;
+}
+
+.status-indicator.processing {
+    background-color: hsl(203.8863, 88.2845%, 53.1373%);
+    color: white;
+}
+
+.status-indicator.warning {
+    background-color: hsl(42.0290, 92.8251%, 56.2745%);
+    color: hsl(210, 25%, 7.8431%);
+}
+
+.status-indicator.error {
+    background-color: hsl(356.3033, 90.5579%, 54.3137%);
+    color: white;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .citation-link {
+        font-size: 0.625rem;
+        padding: 1px 4px;
+    }
+    
+    .source-card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .research-log-item {
+        padding: 0.75rem;
+    }
+    
+    .evidence-matrix {
+        font-size: 0.75rem;
+    }
+}
+
+/* Focus states for accessibility */
+.search-input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid hsl(203.8863, 88.2845%, 53.1373%);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .citation-link {
+        border: 1px solid currentColor;
+    }
+    
+    .source-card {
+        border: 1px solid hsl(210, 25%, 7.8431%);
+    }
+    
+    .gdpr-banner {
+        background: hsl(210, 25%, 7.8431%);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .streaming-cursor::after {
+        animation: none;
+    }
+    
+    .spinner {
+        animation: none;
+        border-top-color: transparent;
+    }
+    
+    .citation-link:hover,
+    .source-card:hover {
+        transform: none;
+    }
+    
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .gdpr-banner,
+    header,
+    footer,
+    #research-log,
+    .spinner {
+        display: none !important;
+    }
+    
+    .citation-link {
+        background: none;
+        color: hsl(210, 25%, 7.8431%);
+        border: 1px solid hsl(210, 25%, 7.8431%);
+        text-decoration: none;
+    }
+    
+    .source-card {
+        border: 1px solid hsl(201.4286, 30.4348%, 90.9804%);
+        break-inside: avoid;
+    }
+    
+    .answer-content {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+}
+
+/* Dark mode support (if implemented) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: hsl(0, 0%, 0%);
+        --foreground: hsl(200, 6.6667%, 91.1765%);
+    }
+    
+    .bg-white {
+        background-color: hsl(228, 9.8039%, 10%) !important;
+    }
+    
+    .text-neutral-900 {
+        color: hsl(200, 6.6667%, 91.1765%) !important;
+    }
+    
+    .border-neutral-200 {
+        border-color: hsl(210, 5.2632%, 14.9020%) !important;
+    }
+}

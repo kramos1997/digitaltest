@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name }} - Professional Research Platform{% endblock %}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af'
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            300: '#d4d4d8',
+                            400: '#a1a1aa',
+                            500: '#71717a',
+                            600: '#52525b',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#1e293b'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-neutral-50 text-neutral-900 font-sans">
+    {% if gdpr_mode %}
+    <!-- GDPR Banner -->
+    <div class="gdpr-banner text-white py-3 px-4 text-center text-sm font-medium">
+        <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+            <i class="fas fa-shield-alt"></i>
+            GDPR Mode Active: Minimal data processing, EU-hosted infrastructure, no persistent storage
+            <a href="/privacy" class="ml-4 text-white/80 hover:text-white text-xs underline">Learn More</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Header -->
+    <header class="bg-white border-b border-neutral-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-search text-white text-sm"></i>
+                    </div>
+                    <a href="/" class="text-xl font-bold text-neutral-900">{{ app_name }}</a>
+                    <span class="text-xs bg-neutral-100 text-neutral-600 px-2 py-1 rounded-full font-medium">Professional Research</span>
+                </div>
+                <nav class="flex items-center gap-6">
+                    <a href="/privacy" class="text-neutral-600 hover:text-neutral-900 text-sm font-medium transition-colors">Privacy</a>
+                    <a href="/llm/health" class="text-neutral-600 hover:text-neutral-900 text-sm font-medium transition-colors">System Status</a>
+                    <div class="flex items-center gap-2 text-xs text-neutral-500">
+                        <i class="fas fa-server text-green-500"></i>
+                        <span>EU Hosted</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-neutral-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 bg-gradient-to-br from-primary-500 to-primary-700 rounded-md flex items-center justify-center">
+                            <i class="fas fa-search text-white text-xs"></i>
+                        </div>
+                        <span class="font-semibold text-neutral-900">{{ app_name }}</span>
+                    </div>
+                    <div class="text-sm text-neutral-600">
+                        Professional research platform with GDPR compliance
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-neutral-500">
+                    <a href="/privacy" class="hover:text-neutral-700">Privacy Policy</a>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-globe text-green-500"></i>
+                        <span>EU Infrastructure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

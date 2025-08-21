@@ -101,12 +101,9 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
-  }
-  {
-  "scripts": {
-    "build": "vite build",
-    "dev": "tsx server/index.ts",
-    "start": "tsx server/index.ts"
-  }
-}
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true
 }
